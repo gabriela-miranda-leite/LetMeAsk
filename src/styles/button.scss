@@ -26,5 +26,17 @@
   &:disabled {
     opacity: 0.6;
     cursor: not-allowed;
+    
+    svg{
+      animation: load 1.2s linear infinite;
+      @keyframes load {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+    }
   }
 }
