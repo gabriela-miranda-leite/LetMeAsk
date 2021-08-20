@@ -1,6 +1,6 @@
-import { useEffect } from "react";
+
 import { FormEvent, useState } from "react";
-import { useHistory, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 import logoImg from "../assets/images/logo.svg";
 
@@ -11,80 +11,22 @@ import { database } from "../services/firebase";
 import { BiLoaderCircle } from "react-icons/bi";
 import toast, { Toaster } from "react-hot-toast";
 import "../styles/room.scss";
-
-type FirebaseQuestions = Record<
-  string,
-  {
-    author: {
-      name: string;
-      avatar: string;
-    };
-    content: string;
-    isAnswered: boolean;
-    isHighlighted: boolean;
-  }
->;
-
-type Question = {
-  id: string;
-  author: {
-    name: string;
-    avatar: string;
-  };
-  content: string;
-  isAnswered: boolean;
-  isHighlighted: boolean;
-};
+import "../styles/question.scss";
+import { Question } from "./Question";
+import { useRoom } from "../hooks/useRoom";
 
 type RoomParams = {
   id: string;
-};
+}
 
 export function Room() {
   const { user } = useAuth();
-  const params = useParams<RoomParams>();
   const [newQuestion, setNewQuestion] = useState("");
-  const [questions, setQuestions] = useState<Question[]>([]);
-  const [title, setTitle] = useState("");
   const [load, setLoad] = useState(false);
-  const history = useHistory();
-
+  const params = useParams<RoomParams>();
   const roomId = params.id;
-  useEffect(() => {
-    const handleCodeRoom = async () => {
-      if (roomId.trim() === "") {
-        return;
-      }
-      const roomCode = await database.ref(`rooms/${roomId}`).get();
-      if (!roomCode.exists()) {
-        history.push("/error");
-        return;
-      }
-      const roomRef = database.ref(`rooms/${roomId}`);
-      roomRef.on("value", (room) => {
-        const databaseRoom = room.val();
-        const firebaseQuestions: FirebaseQuestions =
-          databaseRoom.questions ?? {};
-
-        const parsedQuestions = Object.entries(firebaseQuestions).map(
-          ([key, value]) => {
-            return {
-              id: key,
-              content: value.content,
-              author: value.author,
-              isHighlighted: value.isHighlighted,
-              isAnswered: value.isAnswered,
-            };
-          }
-        );
-
-        setTitle(databaseRoom.title);
-        setQuestions(parsedQuestions);
-      });
-    };
-    handleCodeRoom();
-  }, [history, roomId]);
-
+  const { questions, title } = useRoom(roomId);
+  
   async function handleSendQuestion(event: FormEvent) {
     event.preventDefault();
 
@@ -171,7 +113,13 @@ export function Room() {
             )}
           </div>
         </form>
-        {JSON.stringify(questions)}
+        <div className="question-list">
+          {questions.map((question) => {
+            return (
+              <Question key={question.id} content={question.content} author={question.author} />
+            );
+          })}
+        </div>
       </main>
     </div>
   );
