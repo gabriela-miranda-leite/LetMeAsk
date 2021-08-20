@@ -1,84 +1,106 @@
-import { useEffect } from 'react';
-import { FormEvent, useState } from 'react';
-import { useParams } from 'react-router-dom'
+import { useEffect } from "react";
+import { FormEvent, useState } from "react";
+import { useHistory, useParams } from "react-router-dom";
 
-import logoImg from '../assets/images/logo.svg';
+import logoImg from "../assets/images/logo.svg";
 
-import { Button } from '../components/Button';
-import { RoomCode } from '../components/RoomCode';
-import { useAuth } from '../hooks/useAuth';
-import { database } from '../services/firebase';
+import { Button } from "../components/Button";
+import { RoomCode } from "../components/RoomCode";
+import { useAuth } from "../hooks/useAuth";
+import { database } from "../services/firebase";
 import { BiLoaderCircle } from "react-icons/bi";
 import toast, { Toaster } from "react-hot-toast";
-import '../styles/room.scss';
+import "../styles/room.scss";
 
-type FirebaseQuestions = Record<string, {
-  author: {
-    name: string;
-    avatar: string;
+type FirebaseQuestions = Record<
+  string,
+  {
+    author: {
+      name: string;
+      avatar: string;
+    };
+    content: string;
+    isAnswered: boolean;
+    isHighlighted: boolean;
   }
-  content: string;
-  isAnswered: boolean;
-  isHighlighted: boolean;
-}>
+>;
 
 type Question = {
   id: string;
   author: {
     name: string;
     avatar: string;
-  }
+  };
   content: string;
   isAnswered: boolean;
   isHighlighted: boolean;
-}
+};
 
 type RoomParams = {
   id: string;
-}
+};
 
 export function Room() {
   const { user } = useAuth();
   const params = useParams<RoomParams>();
-  const [newQuestion, setNewQuestion] = useState('');
-  const [questions, setQuestions] = useState<Question[]>([])
-  const [title, setTitle] = useState('');
+  const [newQuestion, setNewQuestion] = useState("");
+  const [questions, setQuestions] = useState<Question[]>([]);
+  const [title, setTitle] = useState("");
   const [load, setLoad] = useState(false);
+  const history = useHistory();
 
   const roomId = params.id;
-
   useEffect(() => {
-    const roomRef = database.ref(`rooms/${roomId}`);
+    const handleCodeRoom = async () => {
+      if (roomId.trim() === "") {
+        return;
+      }
+      const roomCode = await database.ref(`rooms/${roomId}`).get();
+      if (!roomCode.exists()) {
+        history.push("/error");
+        return;
+      }
+      const roomRef = database.ref(`rooms/${roomId}`);
+      roomRef.on("value", (room) => {
+        const databaseRoom = room.val();
+        const firebaseQuestions: FirebaseQuestions =
+          databaseRoom.questions ?? {};
 
-    roomRef.on('value', room => {
-      const databaseRoom = room.val();
-      const firebaseQuestions: FirebaseQuestions = databaseRoom.questions ?? {};
+        const parsedQuestions = Object.entries(firebaseQuestions).map(
+          ([key, value]) => {
+            return {
+              id: key,
+              content: value.content,
+              author: value.author,
+              isHighlighted: value.isHighlighted,
+              isAnswered: value.isAnswered,
+            };
+          }
+        );
 
-      const parsedQuestions = Object.entries(firebaseQuestions).map(([key, value]) => {
-        return {
-          id: key,
-          content: value.content,
-          author: value.author,
-          isHighlighted: value.isHighlighted,
-          isAnswered: value.isAnswered,
-        }
-      })
-
-      setTitle(databaseRoom.title);
-      setQuestions(parsedQuestions);
-    })
-  }, [roomId]);
+        setTitle(databaseRoom.title);
+        setQuestions(parsedQuestions);
+      });
+    };
+    handleCodeRoom();
+  }, [history, roomId]);
 
   async function handleSendQuestion(event: FormEvent) {
     event.preventDefault();
 
-    if (newQuestion.trim() === '') {
+    if (newQuestion.trim() === "") {
       return;
     }
 
     if (!user) {
-        toast.error('Você precisa estar logado');
-        return;
+      toast.error("Você precisa estar logado", {
+        style: {
+          borderRadius: "10px",
+          background: "#333",
+          color: "#fff",
+        },
+      });
+      return;
     }
     const question = {
       content: newQuestion,
@@ -87,7 +109,7 @@ export function Room() {
         avatar: user.avatar,
       },
       isHighlighted: false,
-      isAnswered: false
+      isAnswered: false,
     };
 
     setLoad(true);
@@ -101,7 +123,7 @@ export function Room() {
     });
 
     setLoad(false);
-    setNewQuestion('');
+    setNewQuestion("");
   }
 
   return (
@@ -116,25 +138,27 @@ export function Room() {
       <main>
         <div className="room-title">
           <h1>Sala {title}</h1>
-          { questions.length > 0 && <span>{questions.length} pergunta(s)</span> }
+          {questions.length > 0 && <span>{questions.length} pergunta(s)</span>}
         </div>
 
         <form onSubmit={handleSendQuestion}>
           <textarea
             placeholder="O que você quer perguntar?"
-            onChange={event => setNewQuestion(event.target.value)}
+            onChange={(event) => setNewQuestion(event.target.value)}
             value={newQuestion}
           />
 
           <div className="form-footer">
-            { user ? (
+            {user ? (
               <div className="user-info">
                 <img src={user.avatar} alt={user.name} />
                 <span>{user.name}</span>
               </div>
             ) : (
-              <span>Para enviar uma pergunta, <button>faça seu login</button>.</span>
-            ) }
+              <span>
+                Para enviar uma pergunta, <button>faça seu login</button>.
+              </span>
+            )}
             {load ? (
               <Button disabled>
                 <BiLoaderCircle />
@@ -147,7 +171,6 @@ export function Room() {
             )}
           </div>
         </form>
-
         {JSON.stringify(questions)}
       </main>
     </div>
