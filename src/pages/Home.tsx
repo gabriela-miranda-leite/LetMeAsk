@@ -43,6 +43,16 @@ export function Home() {
     })
       return;
     }
+    if (roomRef.val().endedAt) {
+      toast.error('Sala encerrada',{
+      style: {
+        borderRadius: '10px',
+        background: '#333',
+        color: '#fff',
+      },
+    })
+      return;
+    }
     toast.success('Sala encontrada',{
       style: {
         borderRadius: '10px',
