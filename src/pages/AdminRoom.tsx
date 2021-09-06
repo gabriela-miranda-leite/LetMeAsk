@@ -7,7 +7,6 @@ import answerImg from "../assets/images/answer.svg";
 
 import { RoomCode } from "../components/RoomCode";
 import { database } from "../services/firebase";
-import toast, { Toaster } from "react-hot-toast";
 import "../styles/room.scss";
 import "../styles/question.scss";
 import { Question } from "./Question";
