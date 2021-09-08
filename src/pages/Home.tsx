@@ -34,32 +34,32 @@ export function Home() {
     const roomRef = await database.ref(`rooms/${roomCode}`).get();
 
     if (!roomRef.exists()) {
-      toast.error('Sala não existe',{
-      style: {
-        borderRadius: '10px',
-        background: '#333',
-        color: '#fff',
-      },
-    })
+      toast.error("Sala não existe", {
+        style: {
+          borderRadius: "10px",
+          background: "#333",
+          color: "#fff",
+        },
+      });
       return;
     }
     if (roomRef.val().endedAt) {
-      toast.error('Sala encerrada',{
-      style: {
-        borderRadius: '10px',
-        background: '#333',
-        color: '#fff',
-      },
-    })
+      toast.error("Sala encerrada", {
+        style: {
+          borderRadius: "10px",
+          background: "#333",
+          color: "#fff",
+        },
+      });
       return;
     }
-    toast.success('Sala encontrada',{
+    toast.success("Sala encontrada", {
       style: {
-        borderRadius: '10px',
-        background: '#333',
-        color: '#fff',
+        borderRadius: "10px",
+        background: "#333",
+        color: "#fff",
       },
-    })
+    });
     history.push(`/rooms/${roomCode}`);
   }
 
@@ -80,7 +80,9 @@ export function Home() {
         <div className="main-content">
           <img src={logoImg} alt="Letmeask" />
           <button onClick={handleCreateRoom} className="create-room">
-            <img src={googleIconImg} alt="Logo do Google" />
+            <a href="/">
+              <img src={googleIconImg} alt="Logo do Google" />
+            </a>
             Crie sua sala com o Google
           </button>
           <div className="separator">ou entre em uma sala</div>

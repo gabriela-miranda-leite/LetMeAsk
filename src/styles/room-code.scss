@@ -6,6 +6,10 @@
   height: 40px;
   background: #fff;
   overflow: hidden;
+  transition: 0.2s;
+  &:hover{
+    filter: brightness(0.9);
+  }
 
   div {
     background: #835afd;
