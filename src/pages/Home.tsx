@@ -115,7 +115,7 @@ export function Home() {
                   onClick={() => setAdmin(true)}
                   type="submit"
                 >
-                  Entrar na sala como admnistrador
+                  Entrar na sala como administrador
                 </Button>
               </>
             )}
