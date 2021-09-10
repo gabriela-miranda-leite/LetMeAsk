@@ -1,4 +1,8 @@
+import "../styles/question.scss";
+import "../styles/room.scss";
+
 import { useHistory, useParams } from "react-router-dom";
+import { useState } from "react";
 
 import logoImg from "../assets/images/logo.svg";
 import deleteImg from "../assets/images/delete.svg";
@@ -7,14 +11,12 @@ import answerImg from "../assets/images/answer.svg";
 
 import { RoomCode } from "../components/RoomCode";
 import { database } from "../services/firebase";
-import "../styles/room.scss";
-import "../styles/question.scss";
 import { Question } from "./Question";
 import { useRoom } from "../hooks/useRoom";
 import { Button } from "../components/Button";
 import { ModalDelete } from "../components/ModalDelete";
 import Modal from "react-modal";
-import { useState } from "react";
+
 Modal.setAppElement("#root");
 
 type RoomParams = {

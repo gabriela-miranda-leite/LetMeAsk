@@ -10,12 +10,15 @@ import { useAuth } from "../hooks/useAuth";
 import "../styles/auth.scss";
 import { FormEvent, useState } from "react";
 import { database } from "../services/firebase";
+
+import { BiLoaderCircle } from "react-icons/bi";
 import toast, { Toaster } from "react-hot-toast";
 
 export function Home() {
   const history = useHistory();
   const { user, signInWithGoogle } = useAuth();
   const [admin, setAdmin] = useState(false);
+  const [load, setLoad] = useState(false);
   const [roomCode, setRoomCode] = useState("");
 
   async function handleCreateRoom() {
@@ -33,7 +36,7 @@ export function Home() {
     }
 
     const roomRef = await database.ref(`rooms/${roomCode}`).get();
-
+    setLoad(true);
     if (!roomRef.exists()) {
       toast.error("Sala não existe", {
         style: {
@@ -42,6 +45,7 @@ export function Home() {
           color: "#fff",
         },
       });
+      setLoad(false);
       return;
     }
     if (roomRef.val().endedAt) {
@@ -52,8 +56,10 @@ export function Home() {
           color: "#fff",
         },
       });
+      setLoad(false);
       return;
     }
+    setLoad(false);
     toast.success("Sala encontrada", {
       style: {
         borderRadius: "10px",
@@ -61,6 +67,7 @@ export function Home() {
         color: "#fff",
       },
     });
+
     admin
       ? history.push(`admin/rooms/${roomCode}`)
       : history.push(`rooms/${roomCode}`);
@@ -96,14 +103,22 @@ export function Home() {
               onChange={(event) => setRoomCode(event.target.value)}
               value={roomCode}
             />
-            <Button type="submit">Entrar na sala</Button>
-            <Button
-              isOutlined={true}
-              onClick={() => setAdmin(true)}
-              type="submit"
-            >
-              Entrar na sala como admnistrador
-            </Button>
+            {load ? (
+              <Button disabled>
+                <BiLoaderCircle />
+              </Button>
+            ) : (
+              <>
+                <Button type="submit">Entrar na sala</Button>
+                <Button
+                  isOutlined={true}
+                  onClick={() => setAdmin(true)}
+                  type="submit"
+                >
+                  Entrar na sala como admnistrador
+                </Button>
+              </>
+            )}
           </form>
         </div>
       </main>
