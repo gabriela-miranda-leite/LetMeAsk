@@ -15,6 +15,7 @@ import toast, { Toaster } from "react-hot-toast";
 export function Home() {
   const history = useHistory();
   const { user, signInWithGoogle } = useAuth();
+  const [admin, setAdmin] = useState(false);
   const [roomCode, setRoomCode] = useState("");
 
   async function handleCreateRoom() {
@@ -60,7 +61,9 @@ export function Home() {
         color: "#fff",
       },
     });
-    history.push(`/rooms/${roomCode}`);
+    admin
+      ? history.push(`admin/rooms/${roomCode}`)
+      : history.push(`rooms/${roomCode}`);
   }
 
   return (
@@ -94,6 +97,13 @@ export function Home() {
               value={roomCode}
             />
             <Button type="submit">Entrar na sala</Button>
+            <Button
+              isOutlined={true}
+              onClick={() => setAdmin(true)}
+              type="submit"
+            >
+              Entrar na sala como admnistrador
+            </Button>
           </form>
         </div>
       </main>

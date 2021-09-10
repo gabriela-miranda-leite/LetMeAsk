@@ -12,6 +12,10 @@ import "../styles/question.scss";
 import { Question } from "./Question";
 import { useRoom } from "../hooks/useRoom";
 import { Button } from "../components/Button";
+import { ModalDelete } from "../components/ModalDelete";
+import Modal from "react-modal";
+import { useState } from "react";
+Modal.setAppElement("#root");
 
 type RoomParams = {
   id: string;
@@ -25,18 +29,14 @@ export function AdminRoom() {
 
   const { title, questions } = useRoom(roomId);
 
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+
   async function handleEndRoom() {
     await database.ref(`rooms/${roomId}`).update({
       endedAt: new Date(),
     });
 
     history.push("/");
-  }
-
-  async function handleDeleteQuestion(questionId: string) {
-    if (window.confirm("Tem certeza que você deseja excluir esta pergunta?")) {
-      await database.ref(`rooms/${roomId}/questions/${questionId}`).remove();
-    }
   }
 
   async function handleCheckQuestionAsAnswered(questionId: string) {
@@ -105,10 +105,16 @@ export function AdminRoom() {
 
                 <button
                   type="button"
-                  onClick={() => handleDeleteQuestion(question.id)}
+                  onClick={() => setIsDeleteModalOpen(true)}
                 >
                   <img src={deleteImg} alt="Remover questão" />
                 </button>
+                <ModalDelete
+                  isOpen={isDeleteModalOpen}
+                  onRequestClose={() => setIsDeleteModalOpen(false)}
+                  questionId={question.id}
+                  roomId={roomId}
+                />
               </Question>
             );
           })}
