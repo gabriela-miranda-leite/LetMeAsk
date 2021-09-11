@@ -35,5 +35,7 @@ yarn start ou npm start
 
 ## Melhorias a serem feitas
 - Deixar responsivo para mobile
+- Criar sessão de perfil para gerenciar salas
+- Modo Dark
 
 ##### Opa, bom dia ☀️ por Gabriela Miranda
