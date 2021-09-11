@@ -11,6 +11,7 @@
 - Sass
 - React Context
 - React router-dom
+- Firebase
 
 
 ## Como usar
