@@ -5,7 +5,7 @@
 
 ![Home](./.gitlab/home.png)
 
-### Tecnologias Utilizadas
+### 🧪Tecnologias Utilizadas
 - ReactJS
 - Typescript
 - Sass
@@ -14,7 +14,7 @@
 - Firebase
 
 
-## Como usar
+## 🚀Como usar
 
 #### clonar o repositório
 ```bash
@@ -31,7 +31,7 @@ yarn ou npm install
 yarn start ou npm start
 ```
 
-## Deploy
+## 💻Deploy
 [Let me Ask](https://letmeask-f83b3.web.app/)
 
 ## Melhorias a serem feitas
