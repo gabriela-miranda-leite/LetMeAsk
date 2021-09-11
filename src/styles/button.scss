@@ -25,6 +25,17 @@
     color: #835afd;
   }
 
+  &.acceptModal{
+    background: #E73F5D;
+    border: 1px solid #E73F5D;
+    color: #FFF;
+  }
+
+  &.cancelModal{
+    background: #DBDCDD;
+    border: 1px solid #DBDCDD;
+    color: #737380;
+  }
 
   &:not(:disabled):hover {
     filter: brightness(0.9);
