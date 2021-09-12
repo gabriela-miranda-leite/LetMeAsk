@@ -7,30 +7,35 @@ import { useEffect } from "react";
 import { useHistory } from "react-router-dom";
 
 export const Errors = () => {
-
   const history = useHistory();
-  useEffect(()=>{
+  useEffect(() => {
     setTimeout(() => {
-        toast((t) => (
-            <span>
-              Venha para a <button onClick={() => history.push("/")}> Home</button>
-            </span>
-          ), {
-            style: {
-              borderRadius: "10px",
-              background: "#333",
-              color: "#fff",
-            },
-          });
-      }, 1500);
-  },[history]);
+      toast(
+        (t) => (
+          <span>
+            Venha para a{" "}
+            <button onClick={() => history.push("/")}> Home</button>
+          </span>
+        ),
+        {
+          style: {
+            borderRadius: "10px",
+            background: "#333",
+            color: "#fff",
+          },
+        }
+      );
+    }, 1500);
+  }, [history]);
 
   return (
     <div id="errors">
       <Toaster position="top-center" reverseOrder={false} />
       <header>
         <div className="logo">
-          <img src={logoImg} alt="Letmeask" />
+          <a href="/">
+            <img src={logoImg} alt="Letmeask" />
+          </a>
         </div>
       </header>
       <main>
