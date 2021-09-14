@@ -31,12 +31,12 @@ export function Button({
         {...props}
       />
       {sendQuestion && (
-        <button className="button-send">
+        <button className="button-send"  {...props}>
           <img src={sendWhiteImg} alt="Enviar pergunta" />
         </button>
       )}
       {closeRoom && (
-        <button className="button-close">
+        <button className="button-close"  {...props}>
           <img src={closeRoomImg} alt="Encerrar sala" />
         </button>
       )}

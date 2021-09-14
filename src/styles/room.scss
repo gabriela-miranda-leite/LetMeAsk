@@ -10,18 +10,15 @@
       justify-content: space-between;
       align-items: center;
 
-      > a img {
+      a img {
         max-height: 45px;
         cursor: pointer;
       }
 
-      > div {
+      div {
         display: flex;
         gap: 16px;
 
-        button {
-          height: 40px;
-        }
       }
     }
   }
@@ -108,16 +105,12 @@
       .content {
         justify-content: space-between;
         margin: 10px 25px;
-        > a img {
+        a img {
           width: 70px;
         }
-        > div {
+        div {
           display: flex;
           gap: 8px;
-
-          button {
-            display: flex;
-          }
         }
       }
     }
