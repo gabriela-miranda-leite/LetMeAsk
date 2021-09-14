@@ -3,7 +3,7 @@ import "../styles/room.scss";
 
 import { useParams } from "react-router-dom";
 import { useState } from "react";
-
+import toast, { Toaster } from "react-hot-toast";
 import logoImg from "../assets/images/logo.svg";
 import deleteImg from "../assets/images/delete.svg";
 import checkImg from "../assets/images/check.svg";
@@ -47,6 +47,7 @@ export function AdminRoom() {
 
   return (
     <div id="page-room">
+      <Toaster position="top-center" reverseOrder={false} />
       <header>
         <div className="content">
           <a href="/">
