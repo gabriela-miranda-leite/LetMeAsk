@@ -35,7 +35,7 @@ yarn start ou npm start
 [Let me Ask](https://letmeask-f83b3.web.app/)
 
 ## Melhorias a serem feitas
-- Deixar responsivo para mobile
+- Deixar responsivo para mobile :heavy_check_mark:
 - Criar sessão de perfil para gerenciar salas
 - Modo Dark
 
