@@ -76,6 +76,13 @@ export function Home() {
   return (
     <div id="page-auth">
       <Toaster position="top-center" reverseOrder={false} />
+      <header>
+        <div className="content">
+          <a href="/">
+            <img src={logoImg} alt="Letmeask" />
+          </a>
+        </div>
+      </header>
       <aside>
         <img
           src={illustrationImg}

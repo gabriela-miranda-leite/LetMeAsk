@@ -1,59 +1,103 @@
-.button {
-  height: 50px;
-  border-radius: 8px;
-  font-weight: 500;
-  background: #835afd;
-  color: #FFF;
-  padding: 0 32px;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  cursor: pointer;
-  border: 0;
-
-  transition: filter 0.2s;
-
-  img {
-    margin-right: 8px;
+div {
+  .button-close{
+    display: none;
   }
-
-  &.outlined {
-    background: #FFF;
-    border: 1px solid #835afd;
-    color: #835afd;
+  .button-send{
+    display: none;
   }
+  .button {
+    height: 50px;
+    border-radius: 8px;
+    font-weight: 500;
+    background: #835afd;
+    color: #fff;
+    padding: 0 32px;
 
-  &.acceptModal{
-    background: #E73F5D;
-    border: 1px solid #E73F5D;
-    color: #FFF;
-  }
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
-  &.cancelModal{
-    background: #DBDCDD;
-    border: 1px solid #DBDCDD;
-    color: #737380;
-  }
+    cursor: pointer;
+    border: 0;
 
-  &:not(:disabled):hover {
-    filter: brightness(0.9);
-  }
+    transition: filter 0.2s;
 
-  &:disabled {
-    opacity: 0.6;
-    cursor: not-allowed;
-    
-    svg{
-      animation: load 1.2s linear infinite;
-      @keyframes load {
-        0% {
-          transform: rotate(0deg);
+    img {
+      margin-right: 8px;
+    }
+
+    &.outlined {
+      background: #fff;
+      border: 1px solid #835afd;
+      color: #835afd;
+    }
+
+    &.acceptModal {
+      background: #e73f5d;
+      border: 1px solid #e73f5d;
+      color: #fff;
+    }
+
+    &.cancelModal {
+      background: #dbdcdd;
+      border: 1px solid #dbdcdd;
+      color: #737380;
+    }
+
+    &:not(:disabled):hover {
+      filter: brightness(0.9);
+    }
+
+    &:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+
+      svg {
+        animation: load 1.2s linear infinite;
+        @keyframes load {
+          0% {
+            transform: rotate(0deg);
+          }
+          100% {
+            transform: rotate(360deg);
+          }
         }
-        100% {
-          transform: rotate(360deg);
-        }
+      }
+    }
+  }
+  @media (max-width: 525px) {
+    .button-close{
+      background: #fff;
+      border: 1px solid #835afd;
+      color: #835afd;
+      cursor: pointer;
+      height: 40px;
+      width: 40px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 8px;
+    }
+
+    .button-send {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 35px;
+      height: 35px;
+      padding: 10px;
+      border-radius: 8px;
+      background: #835afd;
+      cursor: pointer;
+      border: 0;
+    }
+    .button {
+      &.sendQuestion{
+        display: none;
+      }
+      &.closeRoom {
+        background: yellow;
+        display: none;
       }
     }
   }

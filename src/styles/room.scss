@@ -15,11 +15,11 @@
         cursor: pointer;
       }
 
-      > div{
+      > div {
         display: flex;
         gap: 16px;
 
-        button{
+        button {
           height: 40px;
         }
       }
@@ -50,45 +50,44 @@
       }
     }
 
-    form{
-        textarea{
-            width: 100%;
-            border-radius: 8px;
-            background-color: #FEFEFE;
-            box-shadow: 0px 2px 12px rgba(0, 0, 0, 0.04);
-            resize: vertical;
-            padding: 16px;
-            border: 0;
-            min-height: 130px;
-        }
-        .form-footer{
-          margin-top: 16px;
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-        
+    form {
+      textarea {
+        width: 100%;
+        border-radius: 8px;
+        background-color: #fefefe;
+        box-shadow: 0px 2px 12px rgba(0, 0, 0, 0.04);
+        resize: vertical;
+        padding: 16px;
+        border: 0;
+        min-height: 130px;
+      }
+      .form-footer {
+        margin-top: 16px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
 
-        .user-info{
+        .user-info {
           display: flex;
           align-items: center;
 
-          img{
+          img {
             height: 32px;
             width: 32px;
             border-radius: 50%;
           }
-          span{
+          span {
             margin-left: 8px;
             font: 500 14px;
-            color: #29292E;
+            color: #29292e;
           }
         }
 
-        > span{
+        > span {
           font: 500 14px;
           color: #737380;
-          button{
-            color:#835AFD;
+          .button {
+            color: #835afd;
             text-decoration: underline;
             border: 0;
             background-color: transparent;
@@ -98,8 +97,33 @@
       }
     }
 
-    .question-list{
+    .question-list {
       margin-top: 32px;
+    }
+  }
+  @media (max-width: 750px) {
+    header {
+      height: 55px;
+      padding: 0px;
+      .content {
+        justify-content: space-between;
+        margin: 10px 25px;
+        > a img {
+          width: 70px;
+        }
+        > div {
+          display: flex;
+          gap: 8px;
+
+          button {
+            display: flex;
+          }
+        }
+      }
+    }
+    main{
+      max-width: 525px;
+      margin: 0 25px;
     }
   }
 }

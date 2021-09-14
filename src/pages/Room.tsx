@@ -121,7 +121,7 @@ export function Room() {
               </Button>
             ) : (
               <>
-                <Button type="submit">Enviar pergunta</Button>
+                <Button sendQuestion type="submit">Enviar pergunta</Button>
                 <Toaster position="top-center" reverseOrder={false} />
               </>
             )}

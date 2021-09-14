@@ -54,7 +54,7 @@ export function AdminRoom() {
           </a>
           <div>
             <RoomCode code={roomId} />
-            <Button isOutlined onClick={() => setIsEndRoomModalOpen(true)}>
+            <Button closeRoom isOutlined onClick={() => setIsEndRoomModalOpen(true)}>
               Encerrar sala
             </Button>
             <Modals
