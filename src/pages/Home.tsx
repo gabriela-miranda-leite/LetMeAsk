@@ -116,13 +116,13 @@ export function Home() {
               </Button>
             ) : (
               <>
-                <Button type="submit">Entrar na sala</Button>
+                <Button type="submit">Participante da sala</Button>
                 <Button
                   isOutlined={true}
                   onClick={() => setAdmin(true)}
                   type="submit"
                 >
-                  Entrar na sala como administrador
+                  Administrador da sala
                 </Button>
               </>
             )}
