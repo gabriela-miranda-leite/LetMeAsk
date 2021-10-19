@@ -1,4 +1,4 @@
-<div align="center">![Let me Ask](./.gitlab/Logo.png)</div>
+<div align="center">![Let me Ask](./.github/Logo.png)</div>
 
 # Let me Ask 
 #### Projeto desenvolvido na NLW da Rocketseat🚀, que tem a função de criar salas e realizar perguntas.
